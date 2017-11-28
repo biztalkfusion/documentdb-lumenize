@@ -1,0 +1,12 @@
+E:\Guru\CloudOrchestrator\documentdb-lumenize\obj\x86\Debug\documentdb-lumenize.csproj.CoreCompileInputs.cache
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\Microsoft.Azure.Documents.ServiceInterop.dll
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\DocumentDB.Spatial.Sql.dll
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\ConsoleApplication.exe.config
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\ConsoleApplication.exe
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\ConsoleApplication.pdb
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\Microsoft.Azure.Documents.Client.dll
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\Newtonsoft.Json.dll
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\Microsoft.Azure.Documents.Client.xml
+E:\Guru\CloudOrchestrator\documentdb-lumenize\bin\Debug\Newtonsoft.Json.xml
+E:\Guru\CloudOrchestrator\documentdb-lumenize\obj\x86\Debug\ConsoleApplication.exe
+E:\Guru\CloudOrchestrator\documentdb-lumenize\obj\x86\Debug\ConsoleApplication.pdb

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
@@ -15,8 +14,8 @@ namespace DocumentDB_Lumenize
 {
     class Program
     {
-        static string EndpointUrl = Environment.GetEnvironmentVariable("DOCUMENT_DB_URL");
-        static string AuthorizationKey = Environment.GetEnvironmentVariable("DOCUMENT_DB_KEY");
+        static string EndpointUrl = "https://kuebixedi.documents.azure.com:443/";//Environment.GetEnvironmentVariable("DOCUMENT_DB_URL");
+        static string AuthorizationKey = "YDvYhEpmZMz4oTI5jFAbT4mEzWwmCyQ8SYEMOKQOckmxH3HQq0iB7CyUeVgGI0QmEdCF12fcov6F2ktPcMmRcQ=="; //Environment.GetEnvironmentVariable("DOCUMENT_DB_KEY");
 
         public static async Task<dynamic> executeUntilNoContinuation(DocumentClient client, dynamic config)
         {
@@ -27,7 +26,8 @@ namespace DocumentDB_Lumenize
             {
                 try
                 {
-                    result = await client.ExecuteStoredProcedureAsync<dynamic>("dbs/dev-test-database/colls/dev-test-collection/sprocs/cube", config);
+                    //result = await client.ExecuteStoredProcedureAsync<dynamic>("dbs/dev-test-database/colls/dev-test-collection/sprocs/cube", config);
+                    result = await client.ExecuteStoredProcedureAsync<dynamic>("dbs/incomingedi/colls/edicollect/sprocs/cube", config);
                     config = result.Response;
                     queryDone = true;
                 }
@@ -66,7 +66,9 @@ namespace DocumentDB_Lumenize
             var client = new DocumentClient(new Uri(EndpointUrl), AuthorizationKey);
 
             // Check to verify a database with the id=FamilyRegistry does not exist
-            string databaseId = "dev-test-database";
+            //string databaseId = "dev-test-database";
+            //string databaseLink = "dbs/" + databaseId;
+            string databaseId = "incomingedi";
             string databaseLink = "dbs/" + databaseId;
             Database database = client.CreateDatabaseQuery().Where(db => db.Id == databaseId).AsEnumerable().FirstOrDefault();
 
@@ -84,7 +86,8 @@ namespace DocumentDB_Lumenize
             Console.WriteLine(database.Id);
 
             // Check to verify a document collection with the id=FamilyCollection does not exist
-            string collectionId = "dev-test-collection";
+            //string collectionId = "dev-test-collection";
+            string collectionId = "edicollect";
             string collectionLink = databaseLink + "/colls/" + collectionId;
             DocumentCollection documentCollection = client.CreateDocumentCollectionQuery("dbs/" + database.Id).Where(c => c.Id == collectionId).AsEnumerable().FirstOrDefault();
 
@@ -102,26 +105,27 @@ namespace DocumentDB_Lumenize
             Console.WriteLine(documentCollection.Id);
 
             // Create some documents
-            string doc1s = @"{
-                state: 'doing',
-                points: 5
-            }";
-            Object doc1o = JsonConvert.DeserializeObject<Object>(doc1s);
-            Document doc1 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc1o);
 
-            string doc2s = @"{
-                state: 'doing',
-                points: 50
-            }";
-            Object doc2o = JsonConvert.DeserializeObject<Object>(doc2s);
-            Document doc2 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc2o);
+            //string doc1s = @"{
+            //    state: 'doing',
+            //    points: 5
+            //}";
+            //Object doc1o = JsonConvert.DeserializeObject<Object>(doc1s);
+            //Document doc1 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc1o);
 
-            string doc3s = @"{
-                state: 'done',
-                points: 500
-            }";
-            Object doc3o = JsonConvert.DeserializeObject<Object>(doc3s);
-            Document doc3 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc3o);
+            //string doc2s = @"{
+            //    state: 'doing',
+            //    points: 50
+            //}";
+            //Object doc2o = JsonConvert.DeserializeObject<Object>(doc2s);
+            //Document doc2 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc2o);
+
+            //string doc3s = @"{
+            //    state: 'done',
+            //    points: 500
+            //}";
+            //Object doc3o = JsonConvert.DeserializeObject<Object>(doc3s);
+            //Document doc3 = await client.UpsertDocumentAsync(documentCollection.SelfLink, doc3o);
 
             // Check if a stored procedure with the id=cube exists
             StoredProcedure sproc = client.CreateStoredProcedureQuery("dbs/" + database.Id + "/colls/" + documentCollection.Id).Where(c => c.Id == "cube").AsEnumerable().FirstOrDefault();
@@ -150,15 +154,31 @@ namespace DocumentDB_Lumenize
             Console.WriteLine(sproc.Id);
 
             // Create config for executing sproc
+            //string configString = @"{
+            //    cubeConfig: {
+            //        groupBy: 'state',
+            //        field: 'points',
+            //        f: 'sum'
+            //    },
+            //    filterQuery: 'SELECT * FROM c',
+            //    continuation: null
+            //}";
+
             string configString = @"{
                 cubeConfig: {
-                    groupBy: 'state',
-                    field: 'points',
-                    f: 'sum'
+                   groupBy: 'X12_00401_204.ST.ST01',
+                   field: 'id',
+                    f: 'count'
                 },
-                filterQuery: 'SELECT * FROM c',
+                filterQuery: 'SELECT * FROM c where c.X12_00401_204.ST.ST01 = \""204 \""',
                 continuation: null
             }";
+
+            //',
+            //        field: 'X12_00401_214.N1Loop1.N1',
+            //        f: 'count'
+
+
             dynamic config = JsonConvert.DeserializeObject<Object>(configString);
             Console.WriteLine(config);
 
