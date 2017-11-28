@@ -1,0 +1,9 @@
+﻿SELECT * FROM c where c.X12_00401_214.ST.ST01 = "214"
+
+SELECT * FROM c where c.id= "1dd65cbe-e9e7-4c12-aedc-ab0c2b0c1d26"
+
+SCAC - Standard Carried Alpha Code
+c.X12_00401_214.B10.B1003 = "EXLA"
+
+SELECT * FROM c where c.id = "ed186f45-f0a5-4b80-a88c-618ef84f8fbe"
+SELECT * FROM c where c.UploadDate = "12\23\2016"

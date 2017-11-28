@@ -164,13 +164,23 @@ namespace DocumentDB_Lumenize
             //    continuation: null
             //}";
 
-            string configString = @"{
+            string configString1 = @"{
                 cubeConfig: {
                    groupBy: 'B1003',
                    field: 'B1003',
                     f: 'uniqueValues'
                 },
                 filterQuery: 'SELECT c.X12_00401_214.B10.B1003 FROM c',
+                continuation: null
+            }";
+
+            string configString = @"{
+                cubeConfig: {
+                   groupBy: 'ST01',
+                   field: 'B1003',
+                    f: 'uniqueValues'
+                },
+                filterQuery: 'SELECT c.X12_00401.B10.B1003, c.X12_00401.ST.ST01 FROM c',
                 continuation: null
             }";
 
