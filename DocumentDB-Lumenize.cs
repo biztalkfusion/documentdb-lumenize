@@ -166,11 +166,11 @@ namespace DocumentDB_Lumenize
 
             string configString = @"{
                 cubeConfig: {
-                   groupBy: 'X12_00401_204.ST.ST01',
-                   field: 'id',
-                    f: 'count'
+                   groupBy: 'B1003',
+                   field: 'B1003',
+                    f: 'uniqueValues'
                 },
-                filterQuery: 'SELECT * FROM c where c.X12_00401_204.ST.ST01 = \""204 \""',
+                filterQuery: 'SELECT c.X12_00401_214.B10.B1003 FROM c',
                 continuation: null
             }";
 
